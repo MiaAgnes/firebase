@@ -14,8 +14,14 @@ export default function PostDetailPage() {
   // Mock currentUser - skal erstattes med rigtig authentication senere
   const currentUser = {
     uid: "fTs84KRoYw5pRZEWCq2Z", // Hardcoded til demo
-    isAdmin: false // Sæt til true for admin test
+    isAdmin: true // Sæt til true for admin test - midlertidigt for at teste
   };
+
+  // Debug logging
+  console.log("Current user UID:", currentUser.uid);
+  console.log("Post UID:", post.uid);
+  console.log("Is admin:", currentUser.isAdmin);
+  console.log("Can delete:", post.uid === currentUser.uid || currentUser.isAdmin);
 
   useEffect(() => {
     async function getPost() {
@@ -78,11 +84,9 @@ export default function PostDetailPage() {
           <button onClick={handleUpdate} className="btn-outline">
             Redigér
           </button>
-          {(post.uid === currentUser.uid || currentUser.isAdmin) && (
-            <button onClick={handleDeleteClick} className="btn-outline btn-delete" disabled={isDeleting}>
-              {isDeleting ? "Sletter..." : "Slet"}
-            </button>
-          )}
+          <button onClick={handleDeleteClick} className="btn-outline btn-delete" disabled={isDeleting}>
+            {isDeleting ? "Sletter..." : "Slet"}
+          </button>
         </div>
       </div>
 
